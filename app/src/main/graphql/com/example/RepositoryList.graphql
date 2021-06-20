@@ -1,0 +1,14 @@
+query RepositoryList {
+    user(login: "RubyV") {
+        repositories(first: 10) {
+            totalCount
+            nodes {
+                description
+                id
+                isPrivate
+                createdAt
+                name
+            }
+        }
+    }
+}
