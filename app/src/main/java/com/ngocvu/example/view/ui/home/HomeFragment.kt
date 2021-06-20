@@ -68,7 +68,7 @@ class HomeFragment : BaseFragment() {
         rv_repository.adapter = adapter
         adapter.observeEvent.subscribe({
             findNavController().navigate(
-                R.id.action_homeFragment_to_issuseFragment )
+                R.id.action_homeFragment_to_characterFragment )
         } , { e ->
             Timber.e(e)
         })

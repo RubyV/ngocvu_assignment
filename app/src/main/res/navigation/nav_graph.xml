@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_issuseFragment"
             app:destination="@id/issuseFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
@@ -46,4 +49,9 @@
         android:name="com.ngocvu.example.view.ui.issusedetails.IssuseDetailsFragment"
         android:label="fragment_issuse_details"
         tools:layout="@layout/fragment_issuse_details" />
+    <fragment
+        android:id="@+id/characterFragment"
+        android:name="com.ngocvu.example.view.ui.character.CharacterFragment"
+        android:label="fragment_character"
+        tools:layout="@layout/fragment_character" />
 </navigation>

@@ -3,9 +3,9 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7d375dc28a6accc7da46bdb4cbe9c872/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7d375dc28a6accc7da46bdb4cbe9c872/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e33751888e735ffc71826c6b4f46cdd2/cardview-1.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e33751888e735ffc71826c6b4f46cdd2/cardview-1.0.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e33751888e735ffc71826c6b4f46cdd2/cardview-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/caf81e14c380b373dae7d103a7309b03/cardview-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/caf81e14c380b373dae7d103a7309b03/cardview-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/caf81e14c380b373dae7d103a7309b03/cardview-1.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

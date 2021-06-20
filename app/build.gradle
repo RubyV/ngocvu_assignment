@@ -4,15 +4,16 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
-    id("com.apollographql.apollo").version("2.5.4")
+    id("com.apollographql.apollo").version("2.5.5")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.ngocvu.example"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -26,6 +27,14 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 apollo {
@@ -99,6 +108,10 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidXVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
+    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    // When using Kotlin.
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     //Scaleable size
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
@@ -113,8 +126,8 @@ dependencies {
 
 
     //Apollo GraphQL
-    // Apollo GraphQL
     implementation "com.apollographql.apollo:apollo-runtime:$apollo_version"
     // optional: for coroutines support
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "com.apollographql.apollo:apollo-coroutines-support:$apollo_version"
 }

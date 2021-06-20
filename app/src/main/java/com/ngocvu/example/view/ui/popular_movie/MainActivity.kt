@@ -15,17 +15,25 @@ import com.ngocvu.example.R
 import com.ngocvu.example.data.api.TheMovieDBClient
 import com.ngocvu.example.data.api.TheMovieDBInterface
 import com.ngocvu.example.data.repository.NetworkState
+import com.ngocvu.example.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     // private lateinit var viewModel: MainActivityViewModel
 
     // lateinit var movieRepository: MoviePagedListRepository
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
@@ -66,7 +74,10 @@ class MainActivity : AppCompatActivity() {
 //        })
 
     }
-
+    override fun onSupportNavigateUp(): Boolean {
+        navController.navigateUp()
+        return super.onSupportNavigateUp()
+    }
 
 //    private fun getViewModel(): MainActivityViewModel {
 //        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
