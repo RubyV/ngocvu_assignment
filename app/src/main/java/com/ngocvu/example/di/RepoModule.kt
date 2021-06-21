@@ -1,6 +1,6 @@
 package com.ngocvu.example.di
 
-import com.ngocvu.example.networking.RickAndMortyApi
+import com.ngocvu.example.networking.GithubApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +13,6 @@ object RepoModule {
 
     @Singleton
     @Provides
-    fun provideWebService() = RickAndMortyApi()
+    fun provideWebService() = GithubApi()
 
 }

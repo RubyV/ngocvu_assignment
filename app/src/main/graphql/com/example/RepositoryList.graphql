@@ -1,6 +1,6 @@
 query RepositoryList {
     user(login: "RubyV") {
-        repositories(first: 10) {
+        repositories(first: 20) {
             totalCount
             nodes {
                 description
@@ -8,7 +8,27 @@ query RepositoryList {
                 isPrivate
                 createdAt
                 name
+                issues(first: 10) {
+                    totalCount
+                    nodes {
+                        body
+                        author {
+                            avatarUrl(size: 10)
+                        }
+                        comments(first: 10) {
+                            edges {
+                                node {
+                                    id
+                                }
+                            }
+                        }
+                        createdAt
+                        id
+                        title
+                    }
+                }
             }
         }
+        login
     }
 }

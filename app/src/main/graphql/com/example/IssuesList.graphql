@@ -1,0 +1,23 @@
+query IssuesList{
+    repository(name: "ngocvu_assignment", owner: "RubyV") {
+        issues(first: 10) {
+            totalCount
+            nodes {
+                body
+                id
+                title
+                author {
+                    url
+                    login
+                }
+                comments(first: 10) {
+                    nodes {
+                        body
+                        id
+                        createdAt
+                    }
+                }
+            }
+        }
+    }
+}

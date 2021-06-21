@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.IssuesListQuery
 import com.ngocvu.example.R
 import com.ngocvu.example.data.vo.Issues
 import com.ngocvu.example.data.vo.Repository
@@ -13,11 +14,11 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_issuse.view.*
 import kotlinx.android.synthetic.main.item_repository.view.*
 
-class IssuseAdapter(val context: Context, private var items: List<Issues>) :
+class IssuseAdapter(val context: Context, private var items: List<IssuesListQuery.Node>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val publishSubject = PublishSubject.create<Issues>()
-    val observeEvent: Observable<Issues> = publishSubject
+    private val publishSubject = PublishSubject.create<Int>()
+    val observeEvent: Observable<Int> = publishSubject
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -30,10 +31,10 @@ class IssuseAdapter(val context: Context, private var items: List<Issues>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is IssuseViewHolder) {
-            holder.tvIssuesTitle.text = items[position].issuse_name
-            holder.tvIssuesSubTitle.text = items[position].description
+            holder.tvIssuesTitle.text = items[position].title
+            holder.tvIssuesSubTitle.text = items[position].body
             holder.layoutIssues.setOnClickListener {
-                publishSubject.onNext(items[position])
+                publishSubject.onNext(position)
             }
 
         }

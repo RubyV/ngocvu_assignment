@@ -1,7 +1,7 @@
-package com.ngocvu.example.view.ui.popular_movie
+package com.ngocvu.example.view.ui
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class RickAndMortyApp : Application()
+class GithubApp : Application()
