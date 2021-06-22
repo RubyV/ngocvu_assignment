@@ -1,0 +1,7 @@
+mutation CloseIssue($subjectId: ID!) {
+    closeIssue(input:{issueId: $subjectId}) {
+        issue {
+            closedAt
+        }
+    }
+}

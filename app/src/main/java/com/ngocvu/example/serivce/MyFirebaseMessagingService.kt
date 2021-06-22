@@ -12,6 +12,7 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.ngocvu.example.R
+import com.ngocvu.example.databinding.FragmentIssueCommentBinding
 import com.ngocvu.example.databinding.FragmentIssuseDetailsBinding
 import com.ngocvu.example.view.ui.popular_movie.MainActivity
 
@@ -106,7 +107,7 @@ class MyFirebaseMessagingService  : FirebaseMessagingService() {
      * @param messageBody FCM message body received.
      */
     private fun sendNotification(messageBody: String) {
-        val intent = Intent(this, FragmentIssuseDetailsBinding::class.java)
+        val intent = Intent(this, FragmentIssueCommentBinding::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
             PendingIntent.FLAG_ONE_SHOT)

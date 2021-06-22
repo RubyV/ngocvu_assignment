@@ -8,22 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.example.RepositoryListQuery
 import com.ngocvu.example.R
-import com.ngocvu.example.data.vo.Issues
-import com.ngocvu.example.data.vo.Repository
-import com.ngocvu.example.utils.BundleKeys
-import com.ngocvu.example.view.state.ViewState
-import com.ngocvu.example.view.ui.home.RepositoryAdapter
+import com.ngocvu.example.view.ui.issusedetails.IssueCommentFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar_full_button_and_text.*
-import timber.log.Timber
 
 @AndroidEntryPoint
 class IssuseListFragment : Fragment() {

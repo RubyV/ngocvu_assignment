@@ -5,7 +5,7 @@
     <dimen name="button_corner_radius_large">@dimen/_40sdp</dimen>
     <dimen name="button_stroke">@dimen/_1sdp</dimen>
     <dimen name="view_height">@dimen/_1sdp</dimen>
-    <dimen name="card_view_radius">@dimen/_6sdp</dimen>
+    <dimen name="card_view_radius">@dimen/_10sdp</dimen>
     <dimen name="card_elevation">@dimen/_2sdp</dimen>
 
     <dimen name="top_xsmall_margin">@dimen/_2sdp</dimen>

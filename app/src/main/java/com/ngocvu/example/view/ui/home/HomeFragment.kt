@@ -9,25 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
+import com.apollographql.apollo.cache.normalized.NormalizedCache
 import com.example.IssuesListQuery
-import com.example.RepositoryListQuery
-import com.google.gson.Gson
 import com.ngocvu.example.R
-import com.ngocvu.example.base.BaseFragment
-import com.ngocvu.example.data.vo.Repository
 import com.ngocvu.example.databinding.FragmentHomeBinding
+import com.ngocvu.example.networking.GithubApi
 import com.ngocvu.example.utils.BundleKeys
 import com.ngocvu.example.view.state.ViewState
 import com.ngocvu.example.view.ui.issusellist.IssuseAdapter
-import com.ngocvu.example.view.ui.login.LogInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_log_in.*
 import kotlinx.android.synthetic.main.toolbar_full_button_and_text.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
@@ -69,6 +62,7 @@ class HomeFragment : Fragment() {
         }
     }
     private fun setUpRecyclerView() {
+
         viewModel.queryIssueList()
         viewModel.issuseList.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -79,19 +73,21 @@ class HomeFragment : Fragment() {
                         issuseList.add(resData?.nodes?.get(i)!!)
                     }
                     val adapter = IssuseAdapter(requireContext(), issuseList)
-                    rv_repository.setHasFixedSize(true)
+                    rv_repository.setHasFixedSize(false)
                     rv_repository.adapter = adapter
 
                     adapter.observeEvent.subscribe({
-                        Log.d("Git", resData.nodes.toString())
                         for(element in resData.nodes!!)
                         {
                             sendLst.add(element?.comments!!)
 
                         }
+                        // send comment to issuse details
+
                         setFragmentResult(
                             "requestKey", bundleOf(
-                                "bundleKey" to sendLst
+                                "bundleKey" to sendLst,
+                                BundleKeys.Issue to "Issue 1112"
                             )
                         )
                         navController.navigate(

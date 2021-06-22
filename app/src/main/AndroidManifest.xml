@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools" package="com.ngocvu.example">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:name="com.ngocvu.example.view.ui.GithubApp"
         android:allowBackup="true"
@@ -31,7 +31,9 @@
         <!-- [END fcm_default_channel] -->
         <activity android:name="com.ngocvu.example.view.ui.single_movie_details.SingleMovie">
         </activity>
-        <activity android:name="com.ngocvu.example.view.ui.popular_movie.MainActivity">
+        <activity
+            android:name="com.ngocvu.example.view.ui.popular_movie.MainActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

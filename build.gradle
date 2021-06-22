@@ -25,7 +25,7 @@ buildscript {
         navigationVersion = "2.3.1"
         roomVersion = "2.2.5"
         testExtJunitVersion = "1.1.2"
-        apollo_version = "2.5.5"
+        apollo_version = "2.5.9"
     }
     repositories {
         google()

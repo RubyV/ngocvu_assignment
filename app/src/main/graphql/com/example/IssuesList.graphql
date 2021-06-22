@@ -1,11 +1,14 @@
 query IssuesList{
     repository(name: "ngocvu_assignment", owner: "RubyV") {
+        id
         issues(first: 10) {
             totalCount
             nodes {
                 body
                 id
                 title
+                createdAt
+                closed
                 author {
                     url
                     login
@@ -15,9 +18,17 @@ query IssuesList{
                         body
                         id
                         createdAt
+                        author {
+                            login
+                        }
                     }
                 }
             }
         }
     }
+}
+
+fragment IssuesFragment on Issue {
+    id
+    title
 }

@@ -25,6 +25,12 @@
         <action
             android:id="@+id/action_homeFragment_to_issuseDetailsFragment"
             app:destination="@id/issuseDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_singleMovie"
+            app:destination="@id/singleMovie" />
+        <action
+            android:id="@+id/action_homeFragment_to_issueDetailsSubFragment"
+            app:destination="@id/issueDetailsSubFragment" />
 
     </fragment>
     <fragment
@@ -53,5 +59,15 @@
         android:name="com.ngocvu.example.view.ui.issusedetails.IssuseDetailsFragment"
         android:label="fragment_issuse_details"
         tools:layout="@layout/fragment_issuse_details" />
+    <fragment
+        android:id="@+id/issueDetailsSubFragment"
+        android:name="com.ngocvu.example.view.ui.issusedetails.IssueDetailsSubFragment"
+        android:label="fragment_issue_details_sub"
+        tools:layout="@layout/fragment_issue_details_sub" />
+    <activity
+        android:id="@+id/singleMovie"
+        android:name="com.ngocvu.example.view.ui.single_movie_details.SingleMovie"
+        android:label="activity_single_movie"
+        tools:layout="@layout/activity_single_movie" />
 
 </navigation>

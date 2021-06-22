@@ -1,31 +1,45 @@
 package com.ngocvu.example.networking
 
 import android.os.Looper
+import android.util.Log
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.api.cache.http.HttpCachePolicy
+import com.apollographql.apollo.api.Operation
+import com.apollographql.apollo.api.ResponseField
+import com.apollographql.apollo.api.cache.http.HttpCache
 import com.apollographql.apollo.cache.http.ApolloHttpCache
 import com.apollographql.apollo.cache.http.DiskLruHttpCacheStore
-import com.ngocvu.example.view.ui.popular_movie.MainActivity
-import hilt_aggregated_deps._com_ngocvu_example_view_ui_popular_movie_MainActivity_GeneratedInjector
+import com.apollographql.apollo.cache.normalized.CacheKey
+import com.apollographql.apollo.cache.normalized.CacheKeyResolver
+import com.apollographql.apollo.cache.normalized.lru.EvictionPolicy
+import com.apollographql.apollo.cache.normalized.lru.LruNormalizedCacheFactory
+import com.apollographql.apollo.cache.normalized.sql.SqlNormalizedCacheFactory
+import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import io.reactivex.rxjava3.schedulers.Schedulers.single
 import okhttp3.OkHttpClient
 import java.io.File
-import kotlin.coroutines.coroutineContext
 
 class GithubApi {
     fun getApolloClient(): ApolloClient {
-        // Directory where cached responses will be stored
-        val file = File(
-            getApplicationContext(),
-            "apolloCache"
+
+        val cacheFactory = LruNormalizedCacheFactory(
+            EvictionPolicy.builder().maxSizeBytes(10 * 1024 * 1024).build()
         )
 
-        // Size in bytes of the cache
-        val size: Long = 1024 * 1024
 
-        // Create the http response cache store
+        val resolver: CacheKeyResolver = object : CacheKeyResolver() {
+            override fun fromFieldRecordSet(field: ResponseField, recordSet: Map<String, Any>): CacheKey {
+                // Retrieve the id from the object itself
+                return if (recordSet["__typename"] == "Repository") {
+                    CacheKey(recordSet["id"] as String)
+                } else {
+                    CacheKey.NO_KEY
+                }
+            }
 
-        val cacheStore = DiskLruHttpCacheStore(file, size)
-
+            override fun fromFieldArguments(field: ResponseField, variables: Operation.Variables): CacheKey {
+                return CacheKey.NO_KEY
+            }
+        }
         check(Looper.myLooper() == Looper.getMainLooper()) {
             "Only the main thread can get the apolloClient instance"
         }
@@ -45,18 +59,16 @@ class GithubApi {
                 it.proceed(builder.build())
             }
             .build()
+
+        // Control the cache policy
         val apolloClient = ApolloClient.builder()
             .serverUrl("https://api.github.com/graphql")
-            .httpCache(ApolloHttpCache(cacheStore))
+            .normalizedCache(cacheFactory, resolver)
+            .defaultResponseFetcher(ApolloResponseFetchers
+                .NETWORK_FIRST)
             .okHttpClient(okHttp)
             .build()
 
-        // Control the cache policy
-        val query = FeedQuery(limit = 10, type = FeedType.HOT)
-        val dataResponse = apolloClient.query(query)
-            .httpCachePolicy(HttpCachePolicy.NETWORK_FIRST)
-            .toDeferred()
-            .await()
         return apolloClient
     }
 }

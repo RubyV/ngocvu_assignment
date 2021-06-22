@@ -92,4 +92,6 @@ object BundleKeys {
     const val qrCode = "QR_CODE"
     const val barCode = "BAR_CODE"
 
+    const val Issue = "Issue"
+
 }

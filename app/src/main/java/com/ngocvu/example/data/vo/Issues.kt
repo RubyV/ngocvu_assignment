@@ -1,8 +1,10 @@
 package com.ngocvu.example.data.vo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
-class Issues (
-    val id: Int,
-    val issuse_name: String,
-    val total_comment: Int,
-    val description: String,
-    )
+@Entity(tableName = "issues")
+data class Issues(
+    @PrimaryKey val id: String,
+    val title: String,
+)
