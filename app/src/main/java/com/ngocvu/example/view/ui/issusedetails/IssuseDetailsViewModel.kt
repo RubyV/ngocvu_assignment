@@ -15,6 +15,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 class IssuseDetailsViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

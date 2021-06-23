@@ -17,6 +17,7 @@ import com.ngocvu.example.R
 import com.ngocvu.example.databinding.FragmentHomeBinding
 import com.ngocvu.example.networking.GithubApi
 import com.ngocvu.example.utils.BundleKeys
+import com.ngocvu.example.utils.DialogFragmentUtil
 import com.ngocvu.example.view.state.ViewState
 import com.ngocvu.example.view.ui.issusellist.IssuseAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +53,9 @@ class HomeFragment : Fragment() {
         navController = Navigation.findNavController(view)
         setupToolbar()
         setUpRecyclerView()
-
+        fab.setOnClickListener {
+            DialogFragmentUtil.showSendEmailDialog(requireActivity())
+        }
     }
 
     private fun setupToolbar() {
@@ -61,6 +64,7 @@ class HomeFragment : Fragment() {
             navController.navigateUp()
         }
     }
+
     private fun setUpRecyclerView() {
 
         viewModel.queryIssueList()
@@ -77,6 +81,7 @@ class HomeFragment : Fragment() {
                     rv_repository.adapter = adapter
 
                     adapter.observeEvent.subscribe({
+                        Log.d("Git5", issuseList[it].toString())
                         for(element in resData.nodes!!)
                         {
                             sendLst.add(element?.comments!!)
@@ -87,7 +92,9 @@ class HomeFragment : Fragment() {
                         setFragmentResult(
                             "requestKey", bundleOf(
                                 "bundleKey" to sendLst,
-                                BundleKeys.Issue to "Issue 1112"
+                                BundleKeys.IssueDetails to issuseList[it].body,
+                                BundleKeys.Issue to issuseList[it].title,
+                                BundleKeys.IssueId to issuseList[it].id
                             )
                         )
                         navController.navigate(

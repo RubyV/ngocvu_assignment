@@ -93,5 +93,7 @@ object BundleKeys {
     const val barCode = "BAR_CODE"
 
     const val Issue = "Issue"
+    const val IssueDetails = "ISSUE_DETAILS"
+    const val IssueId = "ISSUE_ID"
 
 }

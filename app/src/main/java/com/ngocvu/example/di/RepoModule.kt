@@ -2,7 +2,6 @@ package com.ngocvu.example.di
 
 import android.app.Application
 import androidx.room.Room
-import com.ngocvu.example.data.vo.IssuesDatabase
 import com.ngocvu.example.networking.GithubApi
 import dagger.Module
 import dagger.Provides
@@ -20,19 +19,4 @@ object RepoModule {
     @Singleton
     @Provides
     fun provideWebService() = GithubApi()
-
-    @Provides
-    @Singleton
-    fun provideDatabase(app: Application) : IssuesDatabase =
-        Room.databaseBuilder(app, IssuesDatabase::class.java, "issues_database")
-            .build()
-
-    @ApplicationScope
-    @Provides
-    @Singleton
-    fun provideApplicationScope() = CoroutineScope(SupervisorJob())
 }
-
-@Retention(AnnotationRetention.RUNTIME)
-@Qualifier
-annotation class ApplicationScope

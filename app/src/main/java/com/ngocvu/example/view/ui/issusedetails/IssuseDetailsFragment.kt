@@ -30,7 +30,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
 @ExperimentalCoroutinesApi
-private const val NUM_PAGES = 5
 @AndroidEntryPoint
 class IssuseDetailsFragment : Fragment() {
 
@@ -39,6 +38,8 @@ class IssuseDetailsFragment : Fragment() {
     private lateinit var navController: NavController
     private var res = ArrayList<IssuesListQuery.Comments>()
     private var issuesName = ""
+    private lateinit var issueBody: String
+    private lateinit var issueId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,15 +55,17 @@ class IssuseDetailsFragment : Fragment() {
             // We use a String here, but any type that can be put in a Bundle is supported
             var results = bundle.get("bundleKey") as ArrayList<IssuesListQuery.Comments>
             issuesName = bundle.get(BundleKeys.Issue) as String
-            setUpToolbar(issuesName)
+            issueBody = bundle.get(BundleKeys.IssueDetails) as String
+            issueId = bundle.get(BundleKeys.IssueId) as String
 
             results.forEach {
                 res.add(it)
 
             }
+            setUpToolbar(issuesName)
+            setupViewPager()
         }
 
-        setupViewPager()
 
     }
 
@@ -76,7 +79,10 @@ class IssuseDetailsFragment : Fragment() {
         val adapter = IssueDetailViewPagerAdapter(
             this,
             2,
-            res
+            res,
+            issueBody,
+            issueId,
+            issuesName,
         )
         pager!!.adapter = adapter
 
