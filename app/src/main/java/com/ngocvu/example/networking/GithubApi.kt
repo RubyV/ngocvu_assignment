@@ -1,7 +1,5 @@
 package com.ngocvu.example.networking
 
-import android.app.Activity
-import android.app.Application
 import android.content.Context
 import android.os.Looper
 import com.apollographql.apollo.ApolloClient
@@ -11,19 +9,19 @@ import com.apollographql.apollo.cache.normalized.CacheKey
 import com.apollographql.apollo.cache.normalized.CacheKeyResolver
 import com.apollographql.apollo.cache.normalized.sql.SqlNormalizedCacheFactory
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
-import com.google.android.datatransport.runtime.dagger.Module
-import com.ngocvu.example.repository.GithubRepository
-import com.ngocvu.example.view.ui.MainActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import javax.inject.Inject
-import javax.inject.Singleton
+
 
 
 class GithubApi @Inject constructor(
     @ApplicationContext private val context: Context,
 ){
-
+    companion object {
+        var GITHUB_KEY = "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"
+        var BASE_URL = "https://api.github.com/graphql"
+    }
     fun getApolloClient (): ApolloClient {
 
         val sqlNormalizedCacheFactory = SqlNormalizedCacheFactory(context,"github_cache")
@@ -52,7 +50,7 @@ class GithubApi @Inject constructor(
                 )
                 builder.addHeader(
                     "Authorization",
-                    "Bearer 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"
+                    "Bearer $GITHUB_KEY"
                 )
                 it.proceed(builder.build())
             }
@@ -60,7 +58,7 @@ class GithubApi @Inject constructor(
 
         // Control the cache policy
         val apolloClient = ApolloClient.builder()
-            .serverUrl("https://api.github.com/graphql")
+            .serverUrl(BASE_URL)
             .normalizedCache(sqlNormalizedCacheFactory, cacheKeyResolver)
             .defaultResponseFetcher(ApolloResponseFetchers
                 .CACHE_FIRST)

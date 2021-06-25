@@ -56,12 +56,12 @@
     </fragment>
     <fragment
         android:id="@+id/issuseDetailsFragment"
-        android:name="com.ngocvu.example.view.ui.issusedetails.IssuseDetailsFragment"
+        android:name="com.ngocvu.example.view.ui.issuedetails.IssuseDetailsFragment"
         android:label="fragment_issuse_details"
         tools:layout="@layout/fragment_issuse_details" />
     <fragment
         android:id="@+id/issueDetailsSubFragment"
-        android:name="com.ngocvu.example.view.ui.issusedetails.IssueDetailsSubFragment"
+        android:name="com.ngocvu.example.view.ui.issuedetails.IssueDetailsSubFragment"
         android:label="fragment_issue_details_sub"
         tools:layout="@layout/fragment_issue_details_sub" />
     <activity

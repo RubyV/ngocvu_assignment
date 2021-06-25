@@ -19,6 +19,8 @@ class IssuesAdapter
     : ListAdapter<IssuesListQuery.Node, CharacterViewHolder>(IssuesDiffUtil()) {
     private val publishSubject = PublishSubject.create<Int>()
     val observeEvent: Observable<Int> = publishSubject
+
+   // private var data: List<IssuesListQuery.Node>? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val binding: View = LayoutInflater.from(parent.context).inflate(R.layout.item_issuse,parent,false)
         return CharacterViewHolder(binding)
