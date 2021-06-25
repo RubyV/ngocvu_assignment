@@ -1,13 +1,11 @@
 package com.ngocvu.example.repository
 
-import android.content.Context
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.coroutines.await
 import com.example.*
 import com.example.fragment.IssuesFragment
 import com.ngocvu.example.networking.GithubApi
-import dagger.hilt.android.qualifiers.ApplicationContext
-import java.util.*
+
 import javax.inject.Inject
 
 class GithubRepositoryImpl @Inject constructor(private val apiService: GithubApi): GithubRepository {

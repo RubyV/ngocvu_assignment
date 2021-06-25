@@ -2,7 +2,6 @@ package com.ngocvu.example.view.ui.home
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +17,8 @@ import com.ngocvu.example.databinding.FragmentHomeBinding
 import com.ngocvu.example.utils.BundleKeys
 import com.ngocvu.example.utils.DialogFragmentUtil
 import com.ngocvu.example.view.state.ViewState
-import com.ngocvu.example.view.ui.issusedetails.IssuseDetailsFragment
 import com.ngocvu.example.view.ui.issusellist.IssuesAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.schedulers.Schedulers.start
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar_full_button_and_text.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -104,9 +101,9 @@ class HomeFragment : Fragment() {
                         }
                         setFragmentResult(
                             "requestKey", bundleOf(
-                                "bundleKey" to sendLst,
+                                BundleKeys.Issue to sendLst,
                                 BundleKeys.IssueDetails to issuseList[it].fragments.issuesFragment.author?.login,
-                                BundleKeys.Issue to issuseList[it].fragments.issuesFragment.title,
+                                BundleKeys.IssueTitle to issuseList[it].fragments.issuesFragment.title,
                                 BundleKeys.IssueId to issuseList[it].fragments.issuesFragment.id,
                                 BundleKeys.IssueStatus to issuseList[it].fragments.issuesFragment.closed,
                             )

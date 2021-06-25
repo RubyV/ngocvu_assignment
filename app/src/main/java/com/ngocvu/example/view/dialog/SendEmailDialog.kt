@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.ngocvu.example.R
 import com.ngocvu.example.utils.BundleKeys
+import com.ngocvu.example.view.state.ViewState
 import com.ngocvu.example.view.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.schedulers.Schedulers
@@ -24,10 +25,6 @@ class SendEmailDialog : DialogFragment() {
     companion object {
         fun newInstance(): SendEmailDialog {
             val frag = SendEmailDialog()
-            val args = Bundle()
-//            args.putString(BundleKeys.trxId, trxId)
-//            args.putString(BundleKeys.trxType, trxType)
-//            frag.arguments = args
             return frag
         }
     }
@@ -43,9 +40,9 @@ class SendEmailDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(SendEmailViewModel::class.java)
 
-        et_set_export_email.addTextChangedListener(object : TextWatcher {
+        et_set_repository.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                btn_export.isEnabled = true
+                btn_add_new_issue.isEnabled = true
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -53,8 +50,8 @@ class SendEmailDialog : DialogFragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        btn_export.setOnClickListener {
-            handleGetCreditCard()
+        btn_add_new_issue.setOnClickListener {
+            postNewIssue()
         }
 
         iv_dialog_testing_back_arrow.setOnClickListener {
@@ -67,7 +64,6 @@ class SendEmailDialog : DialogFragment() {
         // Set dialog to be full screen, by default it floating center minor padding
         val window = dialog!!.window
         if (window != null) {
-            // kill stupid white background
             window.setBackgroundDrawableResource(android.R.color.transparent)
             val params = window.attributes
             params.width = WindowManager.LayoutParams.MATCH_PARENT
@@ -79,12 +75,15 @@ class SendEmailDialog : DialogFragment() {
     }
 
     @SuppressLint("CheckResult")
-    private fun handleGetCreditCard() {
-        viewModel.createNewIssue( et_set_export_email.text.toString())
+    private fun postNewIssue() {
+        viewModel.createNewIssue( et_set_repository.text.toString())
         viewModel.newIssue.observe(viewLifecycleOwner) { response ->
-            dismiss()
+            when(response) {
+                is ViewState.Success -> {
+                    dismiss()
+                }
+            }
+
         }
-
-
     }
 }

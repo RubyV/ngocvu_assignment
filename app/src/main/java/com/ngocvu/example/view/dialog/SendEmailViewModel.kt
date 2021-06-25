@@ -30,11 +30,9 @@ class SendEmailViewModel @Inject constructor(
 
         try {
             val response = issuesLst.openIssues("MDEwOlJlcG9zaXRvcnkzNzgyMzExOTQ=",title)
-            Log.d("Git6", response.toString())
             _newIssue.postValue(ViewState.Success(response))
 
         } catch (e: ApolloException) {
-            Log.d("ApolloException", "Failure", e)
             _newIssue.postValue(ViewState.Error("Error fetching issues"))
         }
     }
