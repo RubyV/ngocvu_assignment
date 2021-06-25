@@ -3,6 +3,7 @@
 #### About this project
 This app is an example of using Graphql with Android. The app implements MVVM architecture using Hilt, RxJava, OkHttp3,...
 #### Project Structure
+<img src="project-picture/android-project-structure.png" height="600px"/>
 #### The app has the following packages:
 1. **data**: It contains all the data accessing and manipulating components.
 2. **di**: Dependency providing classes using Dagger2.
@@ -39,6 +40,7 @@ Haven't re-render the list after mutation.
 1. https://github.com/settings/tokens - Go here to get your Personal Access Token 
 2. Replace GITHUB_KEY with token you got from Github. 
 3. As i'm currently using this query to get list issue
+<pre>
 query {
   repository(owner:"xxxx", name:"xxxxx") {
     name
@@ -47,6 +49,7 @@ query {
     url
   }
 }
+</pre>
 You also need to change owner and name value to get the issue list of a repository you like. After
 change, build the project before running. 
 
