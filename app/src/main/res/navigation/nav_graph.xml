@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startUpFragment">
+
+    <fragment
+        android:id="@+id/startUpFragment"
+        android:name="com.ngocvu.example.view.ui.startup.StartUpFragment"
+        android:label="fragment_start_up"
+        tools:layout="@layout/fragment_start_up" >
+        <action
+            android:id="@+id/action_startUpFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ngocvu.example.view.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_issuseFragment"
+            app:destination="@id/issuseFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_issuseDetailsFragment"
+            app:destination="@id/issuseDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_singleMovie"
+            app:destination="@id/singleMovie" />
+        <action
+            android:id="@+id/action_homeFragment_to_issueDetailsSubFragment"
+            app:destination="@id/issueDetailsSubFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.ngocvu.example.view.ui.login.LogInFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_logInFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/issuseFragment"
+        android:name="com.ngocvu.example.view.ui.issusellist.IssuseListFragment"
+        android:label="fragment_issuse"
+        tools:layout="@layout/fragment_issuse" >
+        <action
+            android:id="@+id/action_issuseFragment_to_issuseDetailsFragment"
+            app:destination="@id/issuseDetailsFragment" />
+        <argument
+            android:name="issuseList"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/issuseDetailsFragment"
+        android:name="com.ngocvu.example.view.ui.issusedetails.IssuseDetailsFragment"
+        android:label="fragment_issuse_details"
+        tools:layout="@layout/fragment_issuse_details" />
+    <fragment
+        android:id="@+id/issueDetailsSubFragment"
+        android:name="com.ngocvu.example.view.ui.issusedetails.IssueDetailsSubFragment"
+        android:label="fragment_issue_details_sub"
+        tools:layout="@layout/fragment_issue_details_sub" />
+    <activity
+        android:id="@+id/singleMovie"
+        android:name="com.ngocvu.example.view.ui.single_movie_details.SingleMovie"
+        android:label="activity_single_movie"
+        tools:layout="@layout/activity_single_movie" />
+
+</navigation>

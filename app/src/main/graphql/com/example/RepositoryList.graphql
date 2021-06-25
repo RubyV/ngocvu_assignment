@@ -1,0 +1,36 @@
+query RepositoryList {
+    user(login: "RubyV") {
+        repositories(first: 20) {
+            totalCount
+            nodes {
+                description
+                id
+                isPrivate
+                createdAt
+                name
+                issues(first: 10) {
+                    totalCount
+                    nodes {
+                        body
+                        author {
+                            avatarUrl(size: 10)
+                        }
+                        comments(first: 10) {
+                            edges {
+                                node {
+                                    id
+                                }
+                            }
+                        }
+                        createdAt
+                        id
+                        title
+                    }
+                }
+            }
+        }
+        login
+    }
+}
+
+

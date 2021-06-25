@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1084979839175",
+    "project_id": "graphql-example-c26ad",
+    "storage_bucket": "graphql-example-c26ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084979839175:android:55f452428c59e57548bee2",
+        "android_client_info": {
+          "package_name": "com.ngocvu.example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084979839175-aau1g1049mfbl2mkfafr0nhchtoecfjd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQDG_CGJNOr55jDJjARuOtzLIf9VpnBFs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084979839175-aau1g1049mfbl2mkfafr0nhchtoecfjd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

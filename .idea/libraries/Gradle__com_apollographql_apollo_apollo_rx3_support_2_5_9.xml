@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.apollographql.apollo:apollo-rx3-support:2.5.9">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.apollographql.apollo/apollo-rx3-support/2.5.9/bd8f52dfded88f9a58b17fc585b4f9986e9d3a3a/apollo-rx3-support-2.5.9.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.apollographql.apollo/apollo-rx3-support/2.5.9/80bb17f93690d8e2c571448534ddf2514f15c225/apollo-rx3-support-2.5.9-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.apollographql.apollo/apollo-rx3-support/2.5.9/517a361f5f0b08e989c8b422f37be25cb114129b/apollo-rx3-support-2.5.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

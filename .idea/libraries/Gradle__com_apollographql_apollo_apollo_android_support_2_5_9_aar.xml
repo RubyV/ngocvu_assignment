@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.apollographql.apollo:apollo-android-support:2.5.9@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2b0bf67f21aefa92a9446c5af7f99f4d/jetified-apollo-android-support-2.5.9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2b0bf67f21aefa92a9446c5af7f99f4d/jetified-apollo-android-support-2.5.9/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2b0bf67f21aefa92a9446c5af7f99f4d/jetified-apollo-android-support-2.5.9/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.apollographql.apollo/apollo-android-support/2.5.9/a3b9cde861adb8b4e3396c90f7be34ec9d25f146/apollo-android-support-2.5.9-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.apollographql.apollo/apollo-android-support/2.5.9/9bc189928cc81311c168bd497f08830c89ee9784/apollo-android-support-2.5.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

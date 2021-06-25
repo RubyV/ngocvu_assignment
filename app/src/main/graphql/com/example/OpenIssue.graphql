@@ -1,0 +1,7 @@
+mutation OpenIssue($subjectId: ID!, $body: String!) {
+    createIssue(input:{repositoryId: $subjectId, title: $body}) {
+        issue {
+            title
+        }
+    }
+}
