@@ -13,7 +13,7 @@
     app:cardUseCompatPadding="true">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_20ssp"
         android:layout_marginRight="@dimen/_20ssp"
         android:orientation="horizontal"
@@ -47,7 +47,7 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:textColor="@color/Gray"
             android:layout_toRightOf="@+id/iv_user_author_avatar"
-            android:layout_alignBottom="@+id/tv_user_author_name"
+            android:layout_below="@+id/tv_user_author_name"
             />
     </RelativeLayout>
 

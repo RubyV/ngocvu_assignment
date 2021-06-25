@@ -19,28 +19,3 @@ import javax.inject.Inject
 class IssuseDetailsViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }
-//@ExperimentalCoroutinesApi
-//@HiltViewModel
-//class IssuseDetailsViewModel  @Inject constructor(
-//    private val addNewComment: GithubRepository,
-//) : ViewModel() {
-//    private val _addComment by lazy { MutableLiveData<ViewState<Response<AddCommentToIssueMutation.Data>>>() }
-//    val addComment: MutableLiveData<ViewState<Response<AddCommentToIssueMutation.Data>>>
-//        get() = _addComment
-//
-//    fun addNewComment(body: String) = viewModelScope.launch {
-//        _addComment.postValue(ViewState.Loading())
-//        try {
-//            val response = addNewComment.addNewComment(
-//                "MDU6SXNzdWU5MjU3NjAzNzA=",
-//                body
-//            )
-//            Log.d("Git", response.toString())
-//            _addComment.postValue(ViewState.Success(response))
-//        } catch (e: ApolloException) {
-//            Log.d("ApolloException", "Failure", e)
-//            _addComment.postValue(ViewState.Error("Error fetching characters"))
-//        }
-//    }
-//
-//}

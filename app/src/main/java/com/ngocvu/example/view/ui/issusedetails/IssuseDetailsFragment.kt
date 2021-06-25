@@ -16,8 +16,10 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.viewpager2.widget.ViewPager2
 import com.example.IssuesListQuery
+import com.example.fragment.IssuesFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ngocvu.example.R
@@ -36,10 +38,11 @@ class IssuseDetailsFragment : Fragment() {
 
     private lateinit var viewModel: IssuseDetailsViewModel
     private lateinit var navController: NavController
-    private var res = ArrayList<IssuesListQuery.Comments>()
+    private var res = ArrayList<IssuesFragment.Node>()
     private var issuesName = ""
     private lateinit var issueBody: String
     private lateinit var issueId: String
+    private var issueStatus: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,15 +51,18 @@ class IssuseDetailsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_issuse_details, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProvider(this).get(IssuseDetailsViewModel::class.java)
+        navController = Navigation.findNavController(view)
         setFragmentResultListener("requestKey") { requestKey, bundle ->
             // We use a String here, but any type that can be put in a Bundle is supported
-            var results = bundle.get("bundleKey") as ArrayList<IssuesListQuery.Comments>
+            var results = bundle.get("bundleKey") as ArrayList<IssuesFragment.Node>
             issuesName = bundle.get(BundleKeys.Issue) as String
             issueBody = bundle.get(BundleKeys.IssueDetails) as String
             issueId = bundle.get(BundleKeys.IssueId) as String
+            issueStatus = bundle.get(BundleKeys.IssueStatus) as Boolean
 
             results.forEach {
                 res.add(it)
@@ -83,6 +89,7 @@ class IssuseDetailsFragment : Fragment() {
             issueBody,
             issueId,
             issuesName,
+            issueStatus
         )
         pager!!.adapter = adapter
 

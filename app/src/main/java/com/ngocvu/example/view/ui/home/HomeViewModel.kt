@@ -4,28 +4,37 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
+import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.exception.ApolloException
 import com.example.AddCommentToIssueMutation
 import com.example.IssuesListQuery
 import com.example.OpenIssueMutation
+import com.example.fragment.IssuesFragment
+import com.google.android.datatransport.runtime.dagger.Provides
 import com.ngocvu.example.networking.GithubApi
 import com.ngocvu.example.repository.GithubRepository
 import com.ngocvu.example.view.state.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.*
+import okhttp3.internal.platform.Platform.get
+import timber.log.Timber
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 
 //
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
+
 class HomeViewModel @Inject constructor(
-   private val issuesLst: GithubRepository,
-   private val apolloClient: GithubApi,
+    private val issuesLst: GithubRepository,
 ) : ViewModel() {
+
     private val _issuesList by lazy { MutableLiveData<ViewState<Response<IssuesListQuery.Data>>>() }
     val issuseList: MutableLiveData<ViewState<Response<IssuesListQuery.Data>>>
         get() = _issuesList
@@ -40,9 +49,7 @@ class HomeViewModel @Inject constructor(
         try {
             val response = issuesLst.gelAllIssuesList()
             _issuesList.postValue(ViewState.Success(response))
-
         } catch (e: ApolloException) {
-            Log.d("ApolloException", "Failure", e)
             _issuesList.postValue(ViewState.Error("Error fetching issues"))
         }
 
@@ -50,17 +57,15 @@ class HomeViewModel @Inject constructor(
 
     fun createNewIssue(title: String) = viewModelScope.launch {
         _newIssue.postValue(ViewState.Loading())
-
         try {
             val response = issuesLst.openIssues("MDEwOlJlcG9zaXRvcnkzNzgyMzExOTQ=",title)
-            Log.d("Git6", response.toString())
             _newIssue.postValue(ViewState.Success(response))
 
         } catch (e: ApolloException) {
-            Log.d("ApolloException", "Failure", e)
-            _newIssue.postValue(ViewState.Error("Error fetching issues"))
+            _newIssue.postValue(ViewState.Error("Error create issues"))
         }
     }
+
 
 
 

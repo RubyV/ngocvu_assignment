@@ -13,8 +13,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.ngocvu.example.R
 import com.ngocvu.example.databinding.FragmentIssueCommentBinding
-import com.ngocvu.example.databinding.FragmentIssuseDetailsBinding
-import com.ngocvu.example.view.ui.popular_movie.MainActivity
+import com.ngocvu.example.view.ui.MainActivity
 
 class MyFirebaseMessagingService  : FirebaseMessagingService() {
 

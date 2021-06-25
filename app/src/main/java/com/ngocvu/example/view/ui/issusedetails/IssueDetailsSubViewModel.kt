@@ -28,10 +28,8 @@ class IssueDetailsSubViewModel@Inject constructor(
         _closeIssue.postValue(ViewState.Loading())
         try {
             val response = repo.closedIssues(id)
-            Log.d("Git", response.toString())
             _closeIssue.postValue(ViewState.Success(response))
         } catch (e: ApolloException) {
-            Log.d("ApolloException", "Failure", e)
             _closeIssue.postValue(ViewState.Error("Error fetching characters"))
         }
     }

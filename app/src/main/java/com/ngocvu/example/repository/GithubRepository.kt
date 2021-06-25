@@ -2,6 +2,7 @@ package com.ngocvu.example.repository
 
 import com.apollographql.apollo.api.Response
 import com.example.*
+import com.example.fragment.IssuesFragment
 
 interface GithubRepository {
     suspend fun getAllRepositories() : Response<RepositoryListQuery.Data>
@@ -14,5 +15,5 @@ interface GithubRepository {
 
     suspend fun closedIssues(issuesId: String): Response<CloseIssueMutation.Data>
 
-
+    suspend fun mapIssueRepositoriesResponseToRepositories(response: Response<IssuesListQuery.Data>): List<IssuesFragment>
 }

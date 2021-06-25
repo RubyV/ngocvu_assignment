@@ -23,33 +23,18 @@ class IssueCommentViewModel  @Inject constructor(
     val addComment: MutableLiveData<ViewState<Response<AddCommentToIssueMutation.Data>>>
         get() = _addComment
 
-    fun addNewComment(body: String) = viewModelScope.launch {
+    fun addNewComment(body: String, issueId: String) = viewModelScope.launch {
         _addComment.postValue(ViewState.Loading())
         try {
             val response = addNewComment.addNewComment(
-                "MDU6SXNzdWU5MjU3NjAzNzA=",
+                issueId,
                 body
             )
-            Log.d("Git", response.toString())
             _addComment.postValue(ViewState.Success(response))
         } catch (e: ApolloException) {
-            Log.d("ApolloException", "Failure", e)
             _addComment.postValue(ViewState.Error("Error fetching characters"))
         }
     }
 
-    fun postComment(body: String, ) = viewModelScope.launch {
-        _addComment.postValue(ViewState.Loading())
-        try {
-            val response = addNewComment.addNewComment(
-                "MDU6SXNzdWU5MjU3NjAzNzA=",
-                body
-            )
-            Log.d("Git4", response.toString())
-            _addComment.postValue(ViewState.Success(response))
-        } catch (e: ApolloException) {
-            Log.d("ApolloException", "Failure", e)
-            _addComment.postValue(ViewState.Error("Error fetching characters"))
-        }
-    }
+
 }

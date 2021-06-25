@@ -32,7 +32,7 @@
         <activity android:name="com.ngocvu.example.view.ui.single_movie_details.SingleMovie">
         </activity>
         <activity
-            android:name="com.ngocvu.example.view.ui.popular_movie.MainActivity"
+            android:name="com.ngocvu.example.view.ui.MainActivity"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
