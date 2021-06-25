@@ -12,6 +12,7 @@ This app is an example of using Graphql with Android. The app implements MVVM ar
 <img src="project-picture/Screen-4.jpg" height="300px"/>
 <br><br>
 <img src="project-picture/Screen-5.jpg" height="300px"/>
+<br></br>
 #### The app has the following packages:
 1. **data**: It contains all the data accessing and manipulating components.
 2. **di**: Dependency providing classes using Dagger2.
@@ -30,7 +31,7 @@ App has these functions:
 3. Cache issue list data
 4. Open/Close issues
 5. Post comment
-### App third party dependency
+#### App third party dependency
 1. RxJava3: https://github.com/amitshekhariitbhu/RxJava2-Android-Samples
 2. Hilt: https://github.com/MindorksOpenSource/android-dagger2-example
 3. OkHttp3: https://square.github.io/okhttp/
