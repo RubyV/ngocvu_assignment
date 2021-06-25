@@ -5,13 +5,13 @@ This app is an example of using Graphql with Android. The app implements MVVM ar
 #### Project Structure
 <img src="project-picture/android-project-structure.png" height="600px"/>
 <br><br>
-<img src="project-picture/screen-1.jpg" height="300px"/>
-<img src="project-picture/screen-2.jpg" height="300px"/>
+<img src="project-picture/Screen-1.jpg" height="300px"/>
+<img src="project-picture/Screen-2.jpg" height="300px"/>
 <br><br>
-<img src="project-picture/screen-3.jpg" height="300px"/>
-<img src="project-picture/screen-4.jpg" height="300px"/>
+<img src="project-picture/Screen-3.jpg" height="300px"/>
+<img src="project-picture/Screen-4.jpg" height="300px"/>
 <br><br>
-<img src="project-picture/screen-5.jpg" height="300px"/>
+<img src="project-picture/Screen-5.jpg" height="300px"/>
 #### The app has the following packages:
 1. **data**: It contains all the data accessing and manipulating components.
 2. **di**: Dependency providing classes using Dagger2.
