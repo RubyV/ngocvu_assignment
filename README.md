@@ -4,11 +4,25 @@
 This app is an example of using Graphql with Android. The app implements MVVM architecture using Hilt, RxJava, OkHttp3,...
 #### Project Structure
 <img src="project-picture/android-project-structure.png" height="600px"/>
+<br><br>
+<img src="project-picture/screen-1.png" height="300px"/>
+<img src="project-picture/screen-2.png" height="300px"/>
+<br><br>
+<img src="project-picture/screen-3.png" height="300px"/>
+<img src="project-picture/screen-4.png" height="300px"/>
+<br><br>
+<img src="project-picture/screen-5.png" height="300px"/>
 #### The app has the following packages:
 1. **data**: It contains all the data accessing and manipulating components.
 2. **di**: Dependency providing classes using Dagger2.
 3. **UI**: View classes along with their corresponding ViewModel.
 4. **utils**: Utility classes.
+<br><br>
+#### Communication between layers
+1. UI calls method from ViewModel.
+2. ViewModel then call repository and executes one or multiple Repositorie function.
+3. The Repository returns data from one or multiple Data Sources(Remote-Rick and morty GraphQL , Local-Room DB). the repository is the single source of truth
+5. Information flows back to the UI where we display the data fetched from data sources.
 #### App function
 App has these functions:
 1. Query All Issues from a repository
@@ -19,11 +33,12 @@ App has these functions:
 ### App third party dependency
 1. RxJava3: https://github.com/amitshekhariitbhu/RxJava2-Android-Samples
 2. Hilt: https://github.com/MindorksOpenSource/android-dagger2-example
-3. OkHttp3: 
-4. Apollo Graphql: 
-5. Timber
-6. Android Material Design 
-7. Navigation Graph: 
+3. OkHttp3: https://square.github.io/okhttp/
+4. Apollo Graphql: https://github.com/apollographql/apollo-android
+5. Timber : https://github.com/JakeWharton/timber
+6. Android Material Design : https://material.io/develop/android
+7. Navigation Graph: https://developer.android.com/guide/navigation/navigation-getting-started
+8. LiveData: https://developer.android.com/topic/libraries/architecture/livedata
 #### Highlight feature in this project and what incomplete and why it may not be working fully 
 #### Highlight feature
 I think I proud of this whole project as it's my first time working with Graphql. But if I have to 

@@ -15,6 +15,7 @@ import com.ngocvu.example.databinding.FragmentIssueCommentBinding
 import com.ngocvu.example.view.state.ViewState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_issue_comment.*
+import timber.log.Timber
 
 @AndroidEntryPoint
 class IssueCommentFragment : Fragment() {
@@ -65,14 +66,13 @@ class IssueCommentFragment : Fragment() {
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.w("Git", "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
             // Get new FCM registration token
             val token = task.result
             // Log and toast
             val msg = getString(R.string.msg_token_fmt, token)
-            Log.d("Git", msg)
+            Timber.d("$msg")
         })
     }
 
@@ -94,12 +94,6 @@ class IssueCommentFragment : Fragment() {
                     is ViewState.Success -> {
                         binding.rvComment.visibility = View.VISIBLE
                         binding.issuesCommentFetchProgress.visibility = View.GONE
-
-                        Log.d("Git", response.value?.data?.addComment.toString())
-
-
-
-
                     }
                     is ViewState.Error -> {
                         issueCommentAdapter.submitList(emptyList())

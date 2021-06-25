@@ -22,6 +22,7 @@ import com.ngocvu.example.databinding.ActivityMainBinding
 import com.ngocvu.example.utils.ConnectionLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         connectionLiveData = ConnectionLiveData(this)
         val isNetworkAvailable = connectionLiveData.observe(this, { isNetworkAvailable ->
             // update UI
-            Log.d("Git", isNetworkAvailable.toString())
+            Timber.d("${isNetworkAvailable.toString()}")
         })
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
