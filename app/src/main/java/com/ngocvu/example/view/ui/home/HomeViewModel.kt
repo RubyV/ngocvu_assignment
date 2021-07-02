@@ -1,32 +1,25 @@
 package com.ngocvu.example.view.ui.home
 
+
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
-import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.exception.ApolloException
-import com.example.AddCommentToIssueMutation
 import com.example.IssuesListQuery
 import com.example.OpenIssueMutation
-import com.example.fragment.IssuesFragment
-import com.google.android.datatransport.runtime.dagger.Provides
-import com.ngocvu.example.networking.GithubApi
 import com.ngocvu.example.repository.GithubRepository
 import com.ngocvu.example.view.state.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.*
-import okhttp3.internal.platform.Platform.get
-import timber.log.Timber
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
-
-
-
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
@@ -34,6 +27,7 @@ import kotlin.coroutines.CoroutineContext
 class HomeViewModel @Inject constructor(
     private val issuesLst: GithubRepository,
 ) : ViewModel() {
+
 
     private val _issuesList by lazy { MutableLiveData<ViewState<Response<IssuesListQuery.Data>>>() }
     val issuseList: MutableLiveData<ViewState<Response<IssuesListQuery.Data>>>
@@ -66,6 +60,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+
+
+    fun queryIssues(): Observable<Response<IssuesListQuery.Data>> {
+        return issuesLst.gelAllIssuesListRx()
+    }
 
 
 

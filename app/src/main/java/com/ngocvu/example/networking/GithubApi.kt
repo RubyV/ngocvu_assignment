@@ -19,7 +19,7 @@ class GithubApi @Inject constructor(
     @ApplicationContext private val context: Context,
 ){
     companion object {
-        var GITHUB_KEY = "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"
+        var GITHUB_KEY = "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"
         var BASE_URL = "https://api.github.com/graphql"
     }
     fun getApolloClient (): ApolloClient {

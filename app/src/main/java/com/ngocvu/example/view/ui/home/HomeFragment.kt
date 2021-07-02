@@ -2,10 +2,12 @@ package com.ngocvu.example.view.ui.home
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.NavController
@@ -19,6 +21,9 @@ import com.ngocvu.example.utils.DialogFragmentUtil
 import com.ngocvu.example.view.state.ViewState
 import com.ngocvu.example.view.ui.issusellist.IssuesAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar_full_button_and_text.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,10 +38,9 @@ class HomeFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var binding: FragmentHomeBinding
     private var issuseList = ArrayList<IssuesListQuery.Node>()
-   private var sendLst = ArrayList<IssuesFragment.Node>()
-   private val issuesAdapter by lazy { IssuesAdapter() }
-
-
+    private var sendLst = ArrayList<IssuesFragment.Node>()
+    private val issuesAdapter by lazy { IssuesAdapter() }
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +58,8 @@ class HomeFragment : Fragment() {
 
         binding.rvRepository.adapter = issuesAdapter
         setupToolbar()
-        setUpRecyclerView()
+        // setUpRecyclerView()
+        setUpNewRecyclerView()
         fab.setOnClickListener {
             DialogFragmentUtil.showSendEmailDialog(requireActivity())
         }
@@ -68,7 +73,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-
         viewModel.queryIssueList()
         viewModel.issuseList.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -82,7 +86,6 @@ class HomeFragment : Fragment() {
                     if (resDataSize == 0) {
                         issuesAdapter.submitList(emptyList())
                         binding.issuesFetchProgress.visibility = View.GONE
-                        binding.issuesFetchProgress.visibility = View.GONE
                         binding.charactersEmptyText.visibility = View.VISIBLE
                     } else {
                         binding.rvRepository.visibility = View.VISIBLE
@@ -95,8 +98,7 @@ class HomeFragment : Fragment() {
                     binding.issuesFetchProgress.visibility = View.GONE
 
                     issuesAdapter.observeEvent.subscribe({
-                        for(comments in issuseList[it].fragments.issuesFragment.comments.nodes!!)
-                        {
+                        for (comments in issuseList[it].fragments.issuesFragment.comments.nodes!!) {
                             sendLst.add(comments!!)
                         }
                         setFragmentResult(
@@ -114,8 +116,6 @@ class HomeFragment : Fragment() {
                     }, { e ->
                         Timber.e(e)
                     })
-
-
                 }
                 is ViewState.Error -> {
                     issuesAdapter.submitList(emptyList())
@@ -126,6 +126,71 @@ class HomeFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun setUpNewRecyclerView() {
+        binding.rvRepository.visibility = View.GONE
+        binding.issuesFetchProgress.visibility = View.VISIBLE
+        compositeDisposable.add(
+            viewModel.queryIssues()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe ({
+
+                var resDataSize = it.data?.repository?.issues!!.totalCount
+                if(resDataSize === 0)
+                {
+                    binding.issuesFetchProgress.visibility = View.GONE
+                    binding.charactersEmptyText.visibility = View.VISIBLE
+                }
+                else
+                {
+                    for (i in 0 until resDataSize)
+                    {
+                        issuseList.add(it.data?.repository?.issues?.nodes?.get(i)!!)
+                    }
+                    issuesAdapter.submitList(issuseList)
+                    binding.rvRepository.visibility = View.VISIBLE
+                    binding.charactersEmptyText.visibility = View.GONE
+                }
+                issuesAdapter.observeEvent.subscribe({
+                    for (comments in issuseList[it].fragments.issuesFragment.comments.nodes!!) {
+                        sendLst.add(comments!!)
+                    }
+                    setFragmentResult(
+                        "requestKey", bundleOf(
+                            BundleKeys.Issue to sendLst,
+                            BundleKeys.IssueDetails to issuseList[it].fragments.issuesFragment.author?.login,
+                            BundleKeys.IssueTitle to issuseList[it].fragments.issuesFragment.title,
+                            BundleKeys.IssueId to issuseList[it].fragments.issuesFragment.id,
+                            BundleKeys.IssueStatus to issuseList[it].fragments.issuesFragment.closed,
+                        )
+                    )
+                    navController.navigate(
+                        R.id.action_homeFragment_to_issuseDetailsFragment
+                    )
+                }, { e ->
+                    Timber.e(e)
+                })
+            },
+            {
+                    throwable ->
+                Toast.makeText(context, throwable.message, Toast.LENGTH_SHORT).show()
+                binding.issuesFetchProgress.visibility = View.GONE
+                binding.rvRepository.visibility = View.GONE
+                binding.charactersEmptyText.visibility = View.VISIBLE
+            }
+        ))
+
+
+    }
+    override fun onPause() {
+        super.onPause()
+        compositeDisposable.clear()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.dispose()
     }
 
 }

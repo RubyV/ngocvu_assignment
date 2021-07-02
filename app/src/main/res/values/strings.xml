@@ -4,15 +4,10 @@
     <string name="start_up_button_login_title">Get Issues</string>
     <string name="close_issue_button">Close</string>
     <string name="home_header_title">Issues List</string>
-    <string name="issues_header_title">Issues</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-    <string name="default_notification_channel_name" translatable="false">Git</string>
     <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
-    <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">FCM Message</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dialog_send_email_address">Repository</string>
     <string name="dialog_send_email_hint">Title</string>
     <string name="dialog_send_email_export">Create New Issue</string>

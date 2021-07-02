@@ -2,23 +2,12 @@
 <resources>
 
     <dimen name="button_corner_radius">@dimen/_6sdp</dimen>
-    <dimen name="button_corner_radius_large">@dimen/_40sdp</dimen>
-    <dimen name="button_stroke">@dimen/_1sdp</dimen>
-    <dimen name="view_height">@dimen/_1sdp</dimen>
     <dimen name="card_view_radius">@dimen/_10sdp</dimen>
     <dimen name="card_elevation">@dimen/_2sdp</dimen>
 
-    <dimen name="top_xsmall_margin">@dimen/_2sdp</dimen>
     <dimen name="top_small_margin">@dimen/_5sdp</dimen>
-    <dimen name="top_margin">@dimen/_10sdp</dimen>
-    <dimen name="top_xmargin">@dimen/_15sdp</dimen>
     <dimen name="top_xxmargin">@dimen/_20sdp</dimen>
-    <dimen name="top_xxxmargin">@dimen/_30sdp</dimen>
-    <dimen name="left_margin">@dimen/_10sdp</dimen>
     <dimen name="left_small_margin">@dimen/_5sdp</dimen>
-    <dimen name="right_margin">@dimen/_10sdp</dimen>
-    <dimen name="left_xmargin">@dimen/_15sdp</dimen>
-    <dimen name="right_xmargin">@dimen/_15sdp</dimen>
     <dimen name="left_xxmargin">@dimen/_20sdp</dimen>
     <dimen name="right_xxmargin">@dimen/_20sdp</dimen>
 

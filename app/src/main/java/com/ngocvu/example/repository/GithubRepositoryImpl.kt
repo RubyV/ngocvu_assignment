@@ -1,18 +1,25 @@
 package com.ngocvu.example.repository
-
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.coroutines.await
+import com.apollographql.apollo.rx3.rxQuery
 import com.example.*
 import com.example.fragment.IssuesFragment
 import com.ngocvu.example.networking.GithubApi
-
+import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
+class GithubRepositoryImpl
 
-class GithubRepositoryImpl @Inject constructor(private val apiService: GithubApi): GithubRepository {
+@Inject constructor(private val apiService: GithubApi): GithubRepository {
 
-    override suspend fun getAllRepositories(): Response<RepositoryListQuery.Data> {
-        return apiService.getApolloClient().query(RepositoryListQuery()).await()
+    override fun gelAllIssuesListRx(): Observable<Response<IssuesListQuery.Data>> {
+        val res = apiService.getApolloClient()
+            .rxQuery(IssuesListQuery())
+        return res
     }
+
 
     override suspend fun gelAllIssuesList(): Response<IssuesListQuery.Data> {
 

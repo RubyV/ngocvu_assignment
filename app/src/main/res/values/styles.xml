@@ -21,12 +21,6 @@
         <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="TextViewWhite">
-        <item name="android:textSize">@dimen/_12ssp</item>
-        <item name="android:textColor">@color/White</item>
-        <item name="android:ellipsize">end</item>
-    </style>
-
     <style name="EditTextBlack">
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="android:textColor">@color/Black</item>
@@ -43,18 +37,6 @@
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/White</item>
-    </style>
-    <style name="ProgressBarStyle" parent="android:Theme.Translucent">
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowTitleStyle">@null</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:windowMinWidthMajor">100%</item>
-        <item name="android:windowMinWidthMinor">100%</item>
     </style>
 
 

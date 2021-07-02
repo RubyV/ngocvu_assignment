@@ -15,7 +15,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.bumptech.glide.manager.ConnectivityMonitor
 import com.ngocvu.example.R
 
 import com.ngocvu.example.databinding.ActivityMainBinding
@@ -34,10 +33,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         connectionLiveData = ConnectionLiveData(this)
-        val isNetworkAvailable = connectionLiveData.observe(this, { isNetworkAvailable ->
-            // update UI
-            Timber.d("${isNetworkAvailable.toString()}")
-        })
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)

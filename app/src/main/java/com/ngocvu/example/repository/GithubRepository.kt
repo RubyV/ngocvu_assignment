@@ -3,9 +3,12 @@ package com.ngocvu.example.repository
 import com.apollographql.apollo.api.Response
 import com.example.*
 import com.example.fragment.IssuesFragment
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 
 interface GithubRepository {
-    suspend fun getAllRepositories() : Response<RepositoryListQuery.Data>
+
+    fun gelAllIssuesListRx(): Observable<Response<IssuesListQuery.Data>>
 
     suspend fun gelAllIssuesList(): Response<IssuesListQuery.Data>
 
@@ -16,4 +19,7 @@ interface GithubRepository {
     suspend fun closedIssues(issuesId: String): Response<CloseIssueMutation.Data>
 
     suspend fun mapIssueRepositoriesResponseToRepositories(response: Response<IssuesListQuery.Data>): List<IssuesFragment>
+
+
+
 }

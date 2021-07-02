@@ -1,6 +1,5 @@
 package com.ngocvu.example.utils
 
-import com.bumptech.glide.load.engine.Resource
 import kotlinx.coroutines.flow.*
 
 inline fun <ResultType, RequestType> networkBoundResource(
