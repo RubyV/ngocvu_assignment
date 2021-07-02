@@ -16,12 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-@ExperimentalCoroutinesApi
-@HiltViewModel
+class LogInViewModel: ViewModel() {
 
-class LogInViewModel @Inject constructor(private val repo: GithubRepository): ViewModel() {
 
-    fun queryIssues(): Observable<Response<IssuesListQuery.Data>> {
-        return repo.gelAllIssuesListRx()
-    }
 }

@@ -22,8 +22,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-@ExperimentalCoroutinesApi
-@AndroidEntryPoint
 class LogInFragment : Fragment() {
 
     companion object {
@@ -49,13 +47,6 @@ class LogInFragment : Fragment() {
     }
     fun initView() {
         btn_login.setOnClickListener {
-            viewModel.queryIssues()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe {
-
-                }
-
             navController.navigate(R.id.action_logInFragment_to_homeFragment)
         }
     }
