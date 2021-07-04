@@ -7,8 +7,10 @@ import com.apollographql.apollo.api.Operation
 import com.apollographql.apollo.api.ResponseField
 import com.apollographql.apollo.cache.normalized.CacheKey
 import com.apollographql.apollo.cache.normalized.CacheKeyResolver
+import com.apollographql.apollo.cache.normalized.sql.BuildConfig
 import com.apollographql.apollo.cache.normalized.sql.SqlNormalizedCacheFactory
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import com.ngocvu.example.BuildConfig.PERSONAL_TOKEN
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import javax.inject.Inject
@@ -19,7 +21,6 @@ class GithubApi @Inject constructor(
     @ApplicationContext private val context: Context,
 ){
     companion object {
-        var GITHUB_KEY = "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"
         var BASE_URL = "https://api.github.com/graphql"
     }
     fun getApolloClient (): ApolloClient {
@@ -50,7 +51,7 @@ class GithubApi @Inject constructor(
                 )
                 builder.addHeader(
                     "Authorization",
-                    "Bearer $GITHUB_KEY"
+                    "Bearer ${PERSONAL_TOKEN}"
                 )
                 it.proceed(builder.build())
             }

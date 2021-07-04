@@ -10,6 +10,9 @@ plugins {
 }
 
 android {
+    def keystorePropertiesFile = rootProject.file("keystore.properties")
+    def keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.ngocvu.example"
@@ -18,6 +21,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "PERSONAL_TOKEN", keystoreProperties["PERSONAL_TOKEN"]
     }
     buildTypes {
         release {

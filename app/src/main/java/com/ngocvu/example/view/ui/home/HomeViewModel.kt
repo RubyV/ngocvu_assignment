@@ -1,8 +1,6 @@
 package com.ngocvu.example.view.ui.home
 
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,13 +11,13 @@ import com.example.OpenIssueMutation
 import com.ngocvu.example.repository.GithubRepository
 import com.ngocvu.example.view.state.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
-import javax.inject.Inject
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
@@ -36,6 +34,8 @@ class HomeViewModel @Inject constructor(
     val newIssue: MutableLiveData<ViewState<Response<OpenIssueMutation.Data>>>
         get() = _newIssue
 
+    // using RxJava
+    private val compositeDisposable = CompositeDisposable()
 
     fun queryIssueList() = viewModelScope.launch {
         _issuesList.postValue(ViewState.Loading())
@@ -61,11 +61,23 @@ class HomeViewModel @Inject constructor(
     }
 
 
-
-    fun queryIssues(): Observable<Response<IssuesListQuery.Data>> {
-        return issuesLst.gelAllIssuesListRx()
+    fun queryIssuesUsingRx(){
+        _issuesList.postValue(ViewState.Loading())
+        val api =  issuesLst.gelAllIssuesListRx()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (
+                {
+                    _issuesList.postValue(ViewState.Success(it))
+                },
+                {
+                    _issuesList.postValue(ViewState.Error(it.toString()))
+                }
+            )
+        compositeDisposable.add(api)
     }
 
-
-
+    override fun onCleared() {
+        compositeDisposable.clear()
+    }
 }

@@ -40,7 +40,6 @@ class HomeFragment : Fragment() {
     private var issuseList = ArrayList<IssuesListQuery.Node>()
     private var sendLst = ArrayList<IssuesFragment.Node>()
     private val issuesAdapter by lazy { IssuesAdapter() }
-    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +58,8 @@ class HomeFragment : Fragment() {
         binding.rvRepository.adapter = issuesAdapter
         setupToolbar()
         // setUpRecyclerView()
-        setUpNewRecyclerView()
+        // Set up rv using rxjava and live data
+        setUpNewRecyclerViewUsingRx()
         fab.setOnClickListener {
             DialogFragmentUtil.showSendEmailDialog(requireActivity())
         }
@@ -128,69 +128,55 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun setUpNewRecyclerView() {
-        binding.rvRepository.visibility = View.GONE
-        binding.issuesFetchProgress.visibility = View.VISIBLE
-        compositeDisposable.add(
-            viewModel.queryIssues()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe ({
 
-                var resDataSize = it.data?.repository?.issues!!.totalCount
-                if(resDataSize === 0)
-                {
-                    binding.issuesFetchProgress.visibility = View.GONE
-                    binding.charactersEmptyText.visibility = View.VISIBLE
+    private fun setUpNewRecyclerViewUsingRx() {
+        viewModel.queryIssuesUsingRx()
+        viewModel.issuseList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    binding.rvRepository.visibility = View.GONE
+                    binding.issuesFetchProgress.visibility = View.VISIBLE
                 }
-                else
-                {
-                    for (i in 0 until resDataSize)
+                is ViewState.Success -> {
+                    var resDataSize = response.value?.data?.repository?.issues?.totalCount
+                    if(resDataSize === 0)
                     {
-                        issuseList.add(it.data?.repository?.issues?.nodes?.get(i)!!)
+                        binding.issuesFetchProgress.visibility = View.GONE
+                        binding.charactersEmptyText.visibility = View.VISIBLE
                     }
-                    issuesAdapter.submitList(issuseList)
-                    binding.rvRepository.visibility = View.VISIBLE
-                    binding.charactersEmptyText.visibility = View.GONE
-                }
-                issuesAdapter.observeEvent.subscribe({
-                    for (comments in issuseList[it].fragments.issuesFragment.comments.nodes!!) {
-                        sendLst.add(comments!!)
+                    else
+                    {
+                        for (i in 0 until resDataSize!!)
+                        {
+                            issuseList.add(response.value?.data?.repository?.issues?.nodes?.get(i)!!)
+                        }
+                        issuesAdapter.submitList(issuseList)
+                        binding.rvRepository.visibility = View.VISIBLE
+                        binding.charactersEmptyText.visibility = View.GONE
                     }
-                    setFragmentResult(
-                        "requestKey", bundleOf(
-                            BundleKeys.Issue to sendLst,
-                            BundleKeys.IssueDetails to issuseList[it].fragments.issuesFragment.author?.login,
-                            BundleKeys.IssueTitle to issuseList[it].fragments.issuesFragment.title,
-                            BundleKeys.IssueId to issuseList[it].fragments.issuesFragment.id,
-                            BundleKeys.IssueStatus to issuseList[it].fragments.issuesFragment.closed,
+                    issuesAdapter.observeEvent.subscribe({
+                        for (comments in issuseList[it].fragments.issuesFragment.comments.nodes!!) {
+                            sendLst.add(comments!!)
+                        }
+                        setFragmentResult(
+                            "requestKey", bundleOf(
+                                BundleKeys.Issue to sendLst,
+                                BundleKeys.IssueDetails to issuseList[it].fragments.issuesFragment.author?.login,
+                                BundleKeys.IssueTitle to issuseList[it].fragments.issuesFragment.title,
+                                BundleKeys.IssueId to issuseList[it].fragments.issuesFragment.id,
+                                BundleKeys.IssueStatus to issuseList[it].fragments.issuesFragment.closed,
+                            )
                         )
-                    )
-                    navController.navigate(
-                        R.id.action_homeFragment_to_issuseDetailsFragment
-                    )
-                }, { e ->
-                    Timber.e(e)
-                })
-            },
-            {
-                    throwable ->
-                Toast.makeText(context, throwable.message, Toast.LENGTH_SHORT).show()
-                binding.issuesFetchProgress.visibility = View.GONE
-                binding.rvRepository.visibility = View.GONE
-                binding.charactersEmptyText.visibility = View.VISIBLE
+                        navController.navigate(
+                            R.id.action_homeFragment_to_issuseDetailsFragment
+                        )
+                    }, { e ->
+                        Timber.e(e)
+                    })
+                }
             }
-        ))
+        }
+    }
 
-
-    }
-    override fun onPause() {
-        super.onPause()
-        compositeDisposable.clear()
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.dispose()
-    }
 
 }
