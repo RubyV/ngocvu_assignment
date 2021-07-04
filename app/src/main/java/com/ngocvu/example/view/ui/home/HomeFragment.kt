@@ -174,6 +174,12 @@ class HomeFragment : Fragment() {
                         Timber.e(e)
                     })
                 }
+                is ViewState.Error -> {
+                    issuesAdapter.submitList(emptyList())
+                    binding.issuesFetchProgress.visibility = View.GONE
+                    binding.rvRepository.visibility = View.GONE
+                    binding.charactersEmptyText.visibility = View.VISIBLE
+                }
             }
         }
     }
